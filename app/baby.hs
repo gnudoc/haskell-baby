@@ -1,10 +1,14 @@
+doubleMe :: Int -> Int
 doubleMe x = x + x
+doubleUs :: Int -> Int -> Int
 doubleUs x y = doubleMe (x + y)
 
+quadrupleSmallNumber :: Int -> Int
 quadrupleSmallNumber x = doubleMe (if x > 100 then x else doubleMe x)
 -- ^ if statements MUST have else
 -- if statements are expressions like any other
 
+conanO'Brien :: String
 conanO'Brien = "Hi! I'm Conan!"
 -- ^ function names start with lowercase
 -- they can contain '
@@ -17,18 +21,22 @@ conanO'Brien = "Hi! I'm Conan!"
 ----------------------
 
 -- lists are homogenous - all the same type of items
-primes = [2,3,5,7,11]
+somePrimes :: [Int]
+somePrimes = [2,3,5,7,11]
 
 -- strings are lists of characters
 -- list concatenation is ++
 -- it requires walking the entire first list then appending the second list
-bigList x y = x ++ y
+
+longerString :: String -> String -> String
+longerString x y = x ++ y
 
 -- prepend a single item to the start of a list w :
 -- this is instantaneous
-prePend a b = a:b
 
-{- so "string" is synctatic sugar for ['s','t','r','i','n','g']
+prependedItem a b = a:b
+
+{- so "string" is syntactic sugar for ['s','t','r','i','n','g']
  - which is syntactic sugar for 's':'t':'r':'i':'n':'g':[]
  - (remember the empty list)
  -}
@@ -51,7 +59,7 @@ maxList x y = if x >= y then x else y
 -- take x y returns a list of the x items at the start of list y
 -- drop x y returns the list without the x items at the start
 
--- minimum x and maximum x can be used of lists of comparable items
+-- minimum x and maximum x can be used on lists of comparable items
 -- sum x returns the sum of a list of numbers
 -- product x works similarly
 -- x `elem` y checks if x is an element of y
@@ -78,14 +86,14 @@ evensUnder20 = [x*2 | x <- [1..10]] -- vaguely reminiscent of java lambda syntax
 evensUnder20DivisibleBy5 = [x*2 | x <- [1..10], x*2 `mod` 5 == 0]
 anotherOne = [x | x <- [50..150], x `mod` 7 == 3] -- predicate is the bit after ,
 -- we can have multiple predicates
--- e.g. A first attempt at sieving primes - logically incorrect
+-- e.g. A first attempt at sieving primes
 primesUnder200 = [x | x <- [2..200], odd x,
-                                   x`mod`3/=0,
-                                   x`mod`5/=0,
-                                   x`mod`7/=0,
-                                   x`mod`11/=0,
-                                   x`mod`13/=0]
--- not the actual fizz-buzz problem - just demonstrates using a function parametero
+                                   x==3 || x`mod`3/=0,
+                                   x==5 || x`mod`5/=0,
+                                   x==7 || x`mod`7/=0,
+                                   x==11 || x`mod`11/=0,
+                                   x==13 || x`mod`13/=0]
+-- not the actual fizz-buzz problem - just demonstrates using a function parameter
 fizzBuzz xx = [if x `mod` 3 == 0 then "fizz" else "buzz" | x <- xx, odd x]
 
 -- TUPLES --
@@ -163,5 +171,5 @@ main = do
     putStrLn $ "Double 5 is: " ++ show (doubleMe 5)
     putStrLn $ "Double 3 and 4 is: " ++ show (doubleUs 3 4)
     putStrLn $ "Conan says: " ++ conanO'Brien
-    putStrLn $ "The 3rd item in primes is: " ++ show (getNthItem primes 2)
-    putStrLn $ "Is 5 in primes? " ++ show (5 `elem` primes)
+    putStrLn $ "The 3rd item in primes is: " ++ show (getNthItem somePrimes 2)
+    putStrLn $ "Is 5 in primes? " ++ show (5 `elem` somePrimes)
